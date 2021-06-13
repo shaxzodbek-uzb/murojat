@@ -21,3 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::resource('appeals', ApiController::class);
+
+Route::get('categories', [ApiController::class, 'categories']);

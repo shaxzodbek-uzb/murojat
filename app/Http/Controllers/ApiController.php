@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appeal;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
@@ -15,17 +16,26 @@ class ApiController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'fullname' => 'nullable|max:255',
             'description' => 'required|max:255',
             'address' => 'required|max:255',
-            'phone' => 'sometimes|max:255',
-            'file' => 'sometimes|file|max:10240'
+            'phone' => 'nullable|max:255',
+            'file' => 'nullable|file|max:10240'
         ]);
 
         $appeal = new Appeal;
         $appeal->fill($request->all());
         $appeal->status = Appeal::STATUS_NEW;
         $appeal->save();
-        return $appeal;
+        return response()->json([
+            'appeal' => $appeal
+        ]);
+    }
+    public function categories()
+    {
+        return response()->json([
+            'categories' => Category::all()
+        ]);
     }
 }

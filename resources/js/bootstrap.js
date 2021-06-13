@@ -1,3 +1,7 @@
+export default function () {
+    console.log('bootstraping');
+}
+
 window._ = require('lodash');
 
 /**

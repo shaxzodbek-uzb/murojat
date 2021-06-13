@@ -7,6 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appeal extends Model
 {
+    protected $fillable = [
+        'category_id',
+        'fullname',
+        'description',
+        'address',
+        'phone',
+        'file'
+    ];
     use HasFactory;
     const STATUS_NEW = 1;
     const STATUS_ACCEPTED = 2;
@@ -32,5 +40,8 @@ class Appeal extends Model
     {
         return $this->belongsTo(Officer::class);
     }
-
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
